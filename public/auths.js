@@ -3,17 +3,20 @@ btnLogin.addEventListener('click', loginUser)
 
 firebase.auth().onAuthStateChanged((user) => {
     console.log('User: ', user);
-    getList(user)
+    // getList(user)
     setupUI(user)
+        // window.location.href = "/ingame.html"
 })
 
 const btnLogout = document.querySelector("#btnLogout");
 btnLogout.addEventListener('click', () => {
     firebase.auth().signOut()
+    window.location.href = "/"
     console.log('Logout completed.');
 })
 
 function loginUser(event) {
+    console.log('hh');
     let provider = new firebase.auth.GoogleAuthProvider();
 
     firebase.auth().signInWithPopup(provider)
@@ -21,7 +24,7 @@ function loginUser(event) {
             var credential = result.credential;
             var token = credential.accessToken;
             var user = result.user;
-            user = JSON.parse(result.user)
+            window.location.href = "/ingame.html"
 
             // ...
         }).catch((error) => {

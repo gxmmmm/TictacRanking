@@ -1,0 +1,88 @@
+@font-face {
+    font-family: kanit;
+    src: url(font/Kanit/Kanit-Light.ttf);
+}
+
+:root {
+    --color1: ;
+    --color2: #f2e8dc;
+    --color3: #f7d9c9;
+    --menu1: #f7f3f0;
+    --menu2: #ecd3ce;
+    --menu3: #f8d8c8;
+}
+
+body {
+    margin: 0;
+}
+
+.left {
+    width: 70vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box {
+    width: 60vw;
+    height: 70vh;
+    border: 4px solid #0E8BFE;
+    box-sizing: border-box;
+    border-radius: 16px;
+    display: flex;
+}
+
+.quick {
+    flex: 1;
+    text-align: center;
+}
+
+.btnfind {
+    background-color: white;
+    color: black;
+    border: 3px solid #FFCB0A;
+    border-radius: 10px;
+    height: 40px;
+}
+
+.btnfind:hover {
+    background-color: #FFCB0A;
+    color: white;
+}
+
+.create {
+    flex: 1;
+    background: linear-gradient(180deg, #FFBF1A 0%, #FFDD63 41.46%, rgba(255, 230, 0, 0) 100%);
+    text-align: center;
+}
+
+.share {
+    display: flex;
+}
+
+.share1,
+.share2 {
+    flex: 1;
+}
+
+.btnfind2 {
+    background-color: white;
+    color: black;
+    border: 3px solid #0E8BFE;
+    border-radius: 20px;
+    height: 40px;
+}
+
+.btnfind2:hover {
+    background-color: #FFCB0A;
+    color: white;
+}
+
+.right {
+    width: 30vw;
+    background: linear-gradient(180deg, #FFBF1A 0%, #FFDD63 41.46%, rgba(255, 230, 0, 0) 100%);
+}
+
+.time {
+    justify-content: center;
+}
