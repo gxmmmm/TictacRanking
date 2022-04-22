@@ -77,19 +77,26 @@ body {
     justify-content: space-around;
 }
 
-
-/* .win-back {
-    width: 60vw;
+.top-box {
     display: flex;
+    flex-direction: row;
+    width: 60vw;
+    justify-content: flex-end;
+}
+
+.youwin {
+    width: 45vw;
+    display: flex;
+    align-items: center;
     flex-direction: row;
     justify-content: center;
 }
 
 .btn-back {
+    width: 7.5vw;
     display: flex;
-    align-self: flex-end;
-    justify-self: center;
-} */
+    justify-content: center;
+}
 
 
 /* 
