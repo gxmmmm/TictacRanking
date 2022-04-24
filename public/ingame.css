@@ -164,3 +164,24 @@ body {
 #page-game{
     display: flex;
 }
+.product-card {
+    position: relative;
+    top: 15px;
+    width: 8vw;
+    height: 6vh;
+    border: 2px solid black;
+    background-color: #FDC25B;
+    border-radius: 20px;
+    z-index: -3;
+}
+.product-card2 {
+    position: relative;
+    top: 15px;
+    right: 50px;
+    width: 8vw;
+    height: 6vh;
+    border: 2px solid black;
+    background-color: #FDC25B;
+    border-radius: 20px;
+    z-index: -3;
+}
