@@ -159,5 +159,8 @@ body {
 }
 .btn-back {
     width: 7.5vw;
-    display: inline-block;
+    margin-left: 10px;
+}
+#page-game{
+    display: flex;
 }
