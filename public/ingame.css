@@ -157,3 +157,7 @@ body {
     font-size: 60px;
     text-align: center;
 }
+.btn-back {
+    width: 7.5vw;
+    display: inline-block;
+}

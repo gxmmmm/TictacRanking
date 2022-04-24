@@ -416,7 +416,6 @@ function matching() {
             console.log(data);
             document.getElementById("img-player-st").innerHTML = `<img src='${data.playerX.photoURL}' width='40px' height='40px' style="border-radius: 50%">`
             document.getElementById("name-player-st").innerHTML = data.playerX.name
-            document.getElementById("scoreX").innerHTML = `<h1>0</h1>`
             if(user.uid == data.playerX.uid) {
                 userPlayer = "X"
             }
