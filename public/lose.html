@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TictacRanking</title>
-    <link rel="stylesheet" href="win.css">
+    <link rel="stylesheet" href="lose.css">
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
@@ -49,8 +49,8 @@
         <div class="left">
             <div class="box">
                 <div class="top-box">
-                    <div class="youwin">
-                        <h1 style="color: black;">You Win !!</h1>
+                    <div class="youlose">
+                        <h1 style="color: black;">You Lose !</h1>
                     </div>
                     <div class="btn-back">
                         <img src="picture/back.png" width="50vw" height="50vw" onclick="window.location.href='ingame.html'">
@@ -58,14 +58,10 @@
                 </div>
 
                 <div class="box-in">
-                    <div class="exp">
-                        <h2>Total EXP</h2>
-                        <h2>+150</h2>
-                    </div>
                     <div class="coins">
                         <h2>Coins</h2>
                         <h2>
-                            <img src="picture/image 6.png" width="45vw" height="45vw"> +50
+                            <img src="picture/image 6.png" width="45vw" height="45vw"> +20
                         </h2>
                     </div>
                     <button type="button" class="btn-share mt-5" onclick="sharefb()">Share on Facebook</button>
