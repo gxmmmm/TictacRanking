@@ -1,0 +1,202 @@
+@font-face {
+    font-family: kanit;
+    src: url(font/Kanit/Kanit-Light.ttf);
+}
+
+:root {
+    --color1: ;
+    --color2: #f2e8dc;
+    --color3: #f7d9c9;
+    --menu1: #f7f3f0;
+    --menu2: #ecd3ce;
+    --menu3: #f8d8c8;
+}
+
+body {
+    margin: 0;
+}
+
+.nav {
+    text-align: center;
+    align-items: center;
+}
+
+.left {
+    width: 70vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 5px;
+    box-shadow: inset 0 0 10px #ecd3ce;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 16px;
+    background-color: red;
+}
+
+.box {
+    width: 60vw;
+    height: 70vh;
+    /* border: 4px solid #0E8BFE; */
+    background: rgba(0, 0, 0, 0.56);
+    box-sizing: border-box;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* .room {
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+} */
+
+.head {
+    background-color: #71C638;
+    color: white;
+    width: 20vw;
+    height: 5vw;
+    font-size: 3vw;
+    margin-top: 1.5vw;
+    border-radius: 20px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.user {
+    flex: 1;
+    display: flex;
+}
+
+.user1 {
+    flex: 1;
+}
+
+.user2 {
+    flex: 1;
+}
+
+.btnfind2 {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.56) !important;
+}
+
+.right {
+    width: 30vw;
+    background: linear-gradient(180deg, #FFBF1A 0%, #FFDD63 41.46%, rgba(255, 230, 0, 0) 100%);
+    display: flex;
+    flex-direction: column;
+}
+
+#time {
+    text-align: center;
+    margin-top: 0px;
+}
+
+.table {
+    flex: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user {
+    flex: 1;
+    display: flex;
+}
+
+.game--container {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    width: 306px;
+    margin: 10px auto;
+    background-color: white;
+    color: #04c0b2;
+}
+
+.cell {
+    font-family: "Permanent Marker", cursive;
+    width: 100px;
+    height: 100px;
+    box-shadow: 2px 2px 2px 2px black;
+    border: 2px solid black;
+    cursor: pointer;
+    line-height: 100px;
+    font-size: 60px;
+    text-align: center;
+}
+
+.user1 {
+    flex: 1;
+    background-color: rgb(119, 119, 119);
+    display: flex;
+    align-items: center;
+}
+
+.user2 {
+    flex: 1;
+    background-color: rgb(119, 119, 119);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border-bottom-right-radius: 10px;
+}
+
+.picuser {
+    margin: 0;
+    position: absolute;
+    display: flex;
+}
+
+.username {
+    position: absolute;
+    color: white;
+}
+
+.score {
+    font-size: 4vw;
+    position: absolute;
+    color: white;
+    display: flex;
+}
+
+
+/* *****************************เป่ายิงชุ่บ!!!!!************************** */
+
+#rock,
+#paper,
+#scissors {
+    width: 15vw;
+    height: 37vh;
+    background-color: #FDC25B;
+    border-radius: 25px;
+    border: 2px solid black;
+}
+
+#rock:hover,
+#paper:hover,
+#scissors:hover {
+    background-color: #EE9448;
+}
+
+.room {
+    flex: 4;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}

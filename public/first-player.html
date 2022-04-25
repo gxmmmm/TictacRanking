@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TictacRanking</title>
-    <link rel="stylesheet" href="shop.css">
+    <link rel="stylesheet" href="first-player.css">
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
@@ -53,39 +53,15 @@
         <div class="left">
             <div class="box">
                 <div class="room">
-                    <div class="head">
-                        Buy Phase
-                    </div>
-                    <div class="product">
-                        <div class="product-card">
-                            <div class="img-card">
-                                <img src="/public/picture/spaw_2.png" class="pic-spaw">
-                            </div>
-                            <div class="card-body">
-                                <p style="font-size: 12px;"><b>Spaw</b> <br> Spaw your role &nbsp; &nbsp;Usage: 1</p>
-                            </div>
-                            <div class="btn-card">
-                                <button type="button" class="btndelete" onclick="deleteFunction()">-</button>
-                                <div class="stock">1</div>
-                                <button type="button" class="btnplus" onclick="plusFunction()">+</button>
-                                <button type="button" class="btn-price">300</button>
-                            </div>
-                        </div>
-                        <div class="product-card">
-                            <div class="img-card">
-                                <img src="/public/picture/spaw_1.png" class="pic-spaw">
-                            </div>
-                            <div class="card-body">
-                                <p style="font-size: 12px;">Clear all <br> Clear all on the board &nbsp; &nbsp;Usage: 1</p>
-                            </div>
-                            <div class="btn-card">
-                                <button type="button" class="btndelete" onclick="deleteFunction2()">-</button>
-                                <div class="stock2">1</div>
-                                <button type="button" class="btnplus" onclick="plusFunction2()">+</button>
-                                <button type="button" class="btn-price">300</button>
-                            </div>
-                        </div>
-                    </div>
+                    <button id="rock">
+                        <img src="picture/rock.png" id="pic-rock">
+                    </button>
+                    <button id="scissors">
+                        <img src="picture/scissors.png" id="pic-scissors">
+                    </button>
+                    <button id="paper">
+                        <img src="picture/paper.png" id="pic-paper">
+                    </button>
                 </div>
                 <div class="user">
                     <div class="user1">
