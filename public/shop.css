@@ -52,6 +52,7 @@ body {
     display: flex;
     flex-direction: column;
 }
+
 .room {
     flex: 4;
     display: flex;
@@ -59,6 +60,7 @@ body {
     align-items: center;
     overflow: auto;
 }
+
 .head {
     background-color: #71C638;
     color: white;
@@ -72,16 +74,20 @@ body {
     display: flex;
     justify-content: center;
 }
+
 .user {
     flex: 1;
     display: flex;
 }
+
 .user1 {
     flex: 1;
 }
+
 .user2 {
     flex: 1;
 }
+
 .btnfind2 {
     width: 100%;
     height: 100%;
@@ -95,8 +101,9 @@ body {
     flex-direction: column;
 }
 
-.time {
+#time {
     text-align: center;
+    margin-top: 0px;
 }
 
 .table {
@@ -168,11 +175,13 @@ body {
 
 
 /**************************** buy phase **************************************/
-.product{
+
+.product {
     width: 50vw;
     display: flex;
     justify-content: space-between;
 }
+
 .product-card {
     margin-top: 2vh;
     width: 17vw;
@@ -184,6 +193,7 @@ body {
     align-items: center;
     flex-direction: column;
 }
+
 .img-card {
     width: 15vw;
     height: 15vh;
@@ -195,10 +205,12 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 .pic-spaw {
     width: 6vw;
     height: 12vh;
 }
+
 .card-body {
     display: flex;
     color: #3C415C;
@@ -238,6 +250,7 @@ body {
     align-items: center;
     margin-left: 0.2vw;
 }
+
 .stock2 {
     width: 5vw;
     height: 4vh;
