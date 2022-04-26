@@ -3,9 +3,23 @@ btnLogin.addEventListener('click', loginUser)
 
 firebase.auth().onAuthStateChanged((user) => {
     console.log('User: ', user);
-    // getList(user)
-    setupUI(user)
-        // window.location.href = "/ingame.html"
+    const userData = firebase.database().ref(`User/${user.uid}`)
+    userData.once('value', (data) => {
+            const dataState = data.val()
+            console.log(dataState);
+            if(!dataState) {
+                userData.set({
+                    coins: 500,
+                    exp: 0,
+                    name: user.displayName,
+                    userProfile: user.photoURL
+                })
+            }
+            setupUI(user, dataState)
+        })
+        // getList(user)
+
+    // window.location.href = "/ingame.html"
 })
 
 const btnLogout = document.querySelector("#btnLogout");
@@ -24,6 +38,7 @@ function loginUser(event) {
             var credential = result.credential;
             var token = credential.accessToken;
             var user = result.user;
+
             window.location.href = "/ingame.html"
 
             // ...

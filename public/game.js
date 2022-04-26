@@ -417,7 +417,6 @@ async function matching() {
     })
 
 
-
     room.on('value', function(snapshot) {
         const data = snapshot.val()
         if(data) {
@@ -430,8 +429,7 @@ async function matching() {
             if(data.playerO) {
                 document.getElementById("img-player-nd").innerHTML = `<img src='${data.playerO.photoURL}' width='40px' height='40px' style="border-radius: 50%">`
                 document.getElementById("name-player-nd").innerHTML = data.playerO.name
-                document.getElementById("page-wait").style.display = "none"
-                document.getElementById("page-game").style.display = "block"
+                buyPhase()
                 if(user.uid == data.playerO.uid) {
                     userPlayer = "O"
                 }
@@ -474,6 +472,36 @@ async function join(room_id) {
         return
     }
 }
+
+function buyPhase() {
+    document.getElementById("page-wait").style.display = "none"
+    document.getElementById("page-buyPhase").style.display = "block"
+    timer(10)
+    setTimeout(playState, 11 * 1000)
+}
+
+function playState() {
+    console.log("playState");
+    document.getElementById("page-game").style.display = "block"
+    document.getElementById("page-buyPhase").style.display = "none"
+
+}
+
+function timer(timeleft) {
+    var downloadTimer = setInterval(function() {
+        if(timeleft <= 0) {
+            clearInterval(downloadTimer);
+            document.getElementById("countdown").innerHTML = "Finished";
+        } else {
+            document.getElementById("countdown").innerHTML = timeleft + " seconds remaining";
+        }
+        timeleft -= 1;
+        console.log(timeleft);
+    }, 1000);
+}
+
+
+
 document.addEventListener("DOMContentLoaded", matching, false);
 document
     .querySelectorAll("#cell")
