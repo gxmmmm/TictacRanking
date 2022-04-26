@@ -53,7 +53,58 @@
     <div class="container-fluid" style="min-height: 85vh; display: flex; font-family: 'Kalam', cursive; color: #0E8BFE;">
         <div class="left">
             <div class="box">
-                <div class="room">
+                <div class="room  justify-content-center position-relative">
+                    <div class="btn-back position-absolute" style="top:10px; right:0px;">
+                        <img src="/picture/Frame.png" width="50vw" height="50vw" onclick="window.location.href='ingame.html'">
+                    </div>
+                    <div id="page-buyPhase" class="position-absolute">
+                        <div class="head text-center">
+                            Buy Phase
+                        </div>
+                        <div class="product">
+                            <div class="product-card-bp">
+                                <div class="img-card">
+                                    <img src="/picture/spaw_2.png" class="pic-spaw">
+                                </div>
+                                <div class="card-body-bp">
+                                    <p style="font-size: 12px;"><b>Spaw</b> <br> Spaw your role &nbsp; &nbsp;Usage: 1</p>
+                                </div>
+                                <div class="btn-card">
+                                    <button type="button" class="btndelete" onclick="deleteFunction()">-</button>
+                                    <div class="stock">1</div>
+                                    <button type="button" class="btnplus" onclick="plusFunction()">+</button>
+                                    <button type="button" class="btn-price">300</button>
+                                </div>
+                            </div>
+                            <div class="product-card-bp">
+                                <div class="img-card">
+                                    <img src="/picture/spaw_1.png" class="pic-spaw">
+                                </div>
+                                <div class="card-body-bp">
+                                    <p style="font-size: 12px;">Clear all <br> Clear all on the board &nbsp; &nbsp;Usage: 1</p>
+                                </div>
+                                <div class="btn-card">
+                                    <button type="button" class="btndelete" onclick="deleteFunction2()">-</button>
+                                    <div class="stock2">1</div>
+                                    <button type="button" class="btnplus" onclick="plusFunction2()">+</button>
+                                    <button type="button" class="btn-price">300</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="page-wait" class=" text-center">
+                        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                        </div>
+                        <div class="mt-3">Waiting for players</div>
+
+                    </div>
+                    <div style="display: none;" class="" id="page-game">
+
+                        <!-- <div class="room">
+                    <div class="btn-back  text-end">
+                        <img src="/public/picture/Frame.png" width="50vw" height="50vw" onclick="window.location.href='ingame.html'">
+                    </div>
                     <div id="page-wait" style="display: none;">
                         <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
                         </div>
@@ -61,7 +112,7 @@
                         <span class="">Waiting for players</span>
 
                     </div>
-                    <div  class="" id="page-game">
+                    <div class="" id="page-game">
                         <div class="table  text-center">
                             <p id="status" class="status"></p>
                             <div class="game--container">
@@ -76,8 +127,21 @@
                                 <div data-cell-index="8" class="cell" id="cell"></div>
                             </div>
                         </div>
-                        <div class="btn-back">
-                            <img src="/public/picture/Frame.png" width="50vw" height="50vw" onclick="window.location.href='ingame.html'">
+                    </div> -->
+                        <div class="table d-block text-center">
+                            <br>
+                            <p id="status" class="status"></p>
+                            <div class="game--container">
+                                <div data-cell-index="0" class="cell" id="cell"></div>
+                                <div data-cell-index="1" class="cell" id="cell"></div>
+                                <div data-cell-index="2" class="cell" id="cell"></div>
+                                <div data-cell-index="3" class="cell" id="cell"></div>
+                                <div data-cell-index="4" class="cell" id="cell"></div>
+                                <div data-cell-index="5" class="cell" id="cell"></div>
+                                <div data-cell-index="6" class="cell" id="cell"></div>
+                                <div data-cell-index="7" class="cell" id="cell"></div>
+                                <div data-cell-index="8" class="cell" id="cell"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -87,20 +151,35 @@
                 </div>
                 <div class="button">
                     <div class="leftbutton">
-                        <button class="btnfind d-block" type=""><div class="logged-in" style="color: white">
+                        <button class="btnfind d-block" type="">
+                            <div class="d-flex justify-content-between">
+                            <div class="logged-in" style="color: white">
                             <div class="d-inline-block me-2" id="img-player-st"></div>
                             <div class="d-inline-block me-2" id="name-player-st"></div>
-                            <div class="d-inline-block me-2" id="scoreX"></div>
-                            <div>Player : x</div>
+                        </div>
+                        <div>
+                            <div class="d-inline-block me-2" id="scoreX" style="font-size: 30px; color: white;">1</div>
+                            
+                        </div>
+                    </div>
+                        <div>Player : x</div>
                        </button>
                     </div>
                     <div class="rightbutton">
                         <button id="btn-match" class="btnfind2" type="button"> 
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <div class="d-inline-block me-2" id="scoreO" style="font-size: 30px; color: white;">0</div>
+                                    
+                                </div>
+                        </div>
+                        <div>
                             <div class="d-inline-block me-2" id="img-player-nd"></div>
                             <div class="d-inline-block me-2" id="name-player-nd"></div>
+                        </div>
                             <div>Player : 0</div>
                         </button>
-                            
+
                     </div>
                 </div>
             </div>
@@ -124,7 +203,7 @@
             <div id="player-score"></div>
         </div>
     </div>
-     <!-- <div style="height:120px; width:500px" class="row" id="row-1">
+    <!-- <div style="height:120px; width:500px" class="row" id="row-1">
                             <div class="col border justify-content-center align-items-center table-col" id="row-1-col-1">
                                 <p class="display-5"></p>
                             </div>

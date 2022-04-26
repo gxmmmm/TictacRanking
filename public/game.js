@@ -398,7 +398,7 @@ async function update() {
     console.log(currentPlayer);
 }
 
-function matching() {
+async function matching() {
     var user
     firebase.auth().onAuthStateChanged((user_) => {
         user = user_
@@ -407,9 +407,17 @@ function matching() {
 
     var url = new URL(url_string);
     var roomId = url.searchParams.get("roomId");
-    console.log(roomId);
-    console.log(user);
     const room = firebase.database().ref(`Room/${roomId}`)
+
+    await room.once('value', (data) => {
+        const dataState = data.val()
+        if(dataState.playerX.uid != user.uid) {
+            join(roomId)
+        }
+    })
+
+
+
     room.on('value', function(snapshot) {
         const data = snapshot.val()
         if(data) {
@@ -440,7 +448,31 @@ function matching() {
 
         }
     });
-
+}
+async function join(room_id) {
+    var user
+    firebase.auth().onAuthStateChanged((user_) => {
+        user = user_
+    })
+    console.log("join", user);
+    if(room_id) {
+        const room = firebase.database().ref(`Room/${room_id}`)
+        await room.once('value', (data) => {
+            const dataState = data.val()
+            console.log("data", data);
+            if(!dataState.playerO) {
+                firebase.database().ref(`Room/${room_id}`).update({
+                    playerO: {
+                        uid: user.uid,
+                        name: user.displayName,
+                        photoURL: user.photoURL
+                    },
+                })
+            }
+        })
+        console.log("return");
+        return
+    }
 }
 document.addEventListener("DOMContentLoaded", matching, false);
 document

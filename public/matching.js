@@ -137,7 +137,9 @@ function renderRoom() {
         let i = 1
         const user = firebase.auth().currentUser
         for(const roomId in dataState) {
-
+            if(dataState[roomId].playerO && dataState[roomId].playerX) {
+                continue
+            }
             console.log(dataState[roomId]);
             const card = document.createElement("div")
             const cardBody = document.createElement("div")

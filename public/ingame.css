@@ -157,13 +157,16 @@ body {
     font-size: 60px;
     text-align: center;
 }
+
 .btn-back {
     width: 7.5vw;
     margin-left: 10px;
 }
-#page-game{
+
+#page-game {
     display: flex;
 }
+
 .product-card {
     position: relative;
     top: 15px;
@@ -174,6 +177,7 @@ body {
     border-radius: 20px;
     z-index: -3;
 }
+
 .product-card2 {
     position: relative;
     top: 15px;
@@ -184,4 +188,117 @@ body {
     background-color: #FDC25B;
     border-radius: 20px;
     z-index: -3;
+}
+
+
+/**************************** buy phase **************************************/
+
+.product {
+    width: 50vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-card-bp {
+    margin-top: 2vh;
+    width: 17vw;
+    height: 35vh;
+    border: 2px solid black;
+    background-color: #FDC25B;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.img-card {
+    width: 15vw;
+    height: 15vh;
+    background-color: #EE9448;
+    border-radius: 20px;
+    margin-top: 0.6vw;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.pic-spaw {
+    width: 6vw;
+    height: 12vh;
+}
+
+.card-body-bp {
+    display: flex;
+    color: #3C415C;
+    height: 3vw;
+    flex: 1;
+}
+
+.btn-card {
+    width: 16vw;
+    height: 3vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    flex: 1;
+}
+
+.btndelete {
+    width: 2vw;
+    height: 4vh;
+    background-color: #71C638;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 10 !important;
+}
+
+.stock {
+    width: 5vw;
+    height: 4vh;
+    background-color: #94633A;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0.2vw;
+}
+
+.stock2 {
+    width: 5vw;
+    height: 4vh;
+    background-color: #94633A;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0.2vw;
+}
+
+.btnplus {
+    width: 2vw;
+    height: 4vh;
+    background-color: #71C638;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-left: 0.2vw;
+}
+
+.btn-price {
+    width: 5vw;
+    height: 4vh;
+    background-color: #71C638;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-left: 1vw;
 }
