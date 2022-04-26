@@ -177,8 +177,9 @@ body {
     flex-direction: column;
 }
 
-.time {
+#time {
     text-align: center;
+    margin-top: 0px;
 }
 
 

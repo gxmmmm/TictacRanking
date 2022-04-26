@@ -53,13 +53,14 @@ body {
     flex-direction: column;
 }
 
-.room {
+
+/* .room {
     flex: 4;
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow: auto;
-}
+} */
 
 .head {
     background-color: #71C638;
@@ -174,114 +175,28 @@ body {
 }
 
 
-/**************************** buy phase **************************************/
+/* *****************************เป่ายิงชุ่บ!!!!!************************** */
 
-.product {
-    width: 50vw;
-    display: flex;
-    justify-content: space-between;
-}
-
-.product-card {
-    margin-top: 2vh;
-    width: 17vw;
-    height: 35vh;
-    border: 2px solid black;
-    background-color: #FDC25B;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
-.img-card {
+#rock,
+#paper,
+#scissors {
     width: 15vw;
-    height: 15vh;
+    height: 37vh;
+    background-color: #FDC25B;
+    border-radius: 25px;
+    border: 2px solid black;
+}
+
+#rock:hover,
+#paper:hover,
+#scissors:hover {
     background-color: #EE9448;
-    border-radius: 20px;
-    margin-top: 0.6vw;
+}
+
+.room {
+    flex: 4;
     display: flex;
-    flex: 1;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-evenly;
     align-items: center;
-}
-
-.pic-spaw {
-    width: 6vw;
-    height: 12vh;
-}
-
-.card-body {
-    display: flex;
-    color: #3C415C;
-    height: 3vw;
-    flex: 1;
-}
-
-.btn-card {
-    width: 16vw;
-    height: 3vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    flex: 1;
-}
-
-.btndelete {
-    width: 2vw;
-    height: 4vh;
-    background-color: #71C638;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    z-index: 10 !important;
-}
-
-.stock {
-    width: 5vw;
-    height: 4vh;
-    background-color: #94633A;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 0.2vw;
-}
-
-.stock2 {
-    width: 5vw;
-    height: 4vh;
-    background-color: #94633A;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 0.2vw;
-}
-
-.btnplus {
-    width: 2vw;
-    height: 4vh;
-    background-color: #71C638;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    margin-left: 0.2vw;
-}
-
-.btn-price {
-    width: 5vw;
-    height: 4vh;
-    background-color: #71C638;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    margin-left: 1vw;
 }
