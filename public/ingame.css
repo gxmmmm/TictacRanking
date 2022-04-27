@@ -302,3 +302,75 @@ body {
     color: white;
     margin-left: 1vw;
 }
+
+
+/**************************** win lost Modal **************************************/
+
+.box-win {
+    width: 60vw;
+    height: 70vh;
+    border: 2px solid black;
+    box-sizing: border-box;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #fdc25b;
+    color: black;
+}
+
+.box-in {
+    width: 45vw;
+    height: 45vh;
+    background-color: #ee9448;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.btn-share,
+.btn-again {
+    width: 23vw;
+    height: 7vh;
+    background-color: #71c638;
+    border: 2px solid black;
+    border-radius: 4px;
+    color: white;
+    font-size: 1.4vw;
+    align-self: center;
+    /* box-shadow: 5px 5px 5px #4d9320; */
+}
+
+.btn-share:hover,
+.btn-again:hover {
+    background-color: #498d1d;
+    transition-duration: 0.4s;
+}
+
+.exp,
+.coins {
+    display: flex;
+    justify-content: space-around;
+}
+
+.top-box {
+    display: flex;
+    flex-direction: row;
+    width: 60vw;
+    justify-content: flex-end;
+}
+
+.youwin {
+    width: 45vw;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.btn-back {
+    width: 7.5vw;
+    display: flex;
+    justify-content: center;
+}

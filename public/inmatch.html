@@ -52,18 +52,82 @@
     </nav>
     <div class="container-fluid" style="min-height: 85vh; display: flex; font-family: 'Kalam', cursive; color: #0E8BFE;">
         <div class="left">
-            <div class="box">
+
+
+
+            <div class="box" id="box-main">
                 <div class="room  justify-content-center position-relative">
                     <div class="btn-back position-absolute" style="top:10px; right:0px;">
                         <img src="/picture/Frame.png" width="50vw" height="50vw" onclick="window.location.href='ingame.html'">
                     </div>
-                    <div id="page-wait" class=" text-center">
+
+                    <!-- PAGE WIN -->
+                    <div id="page-win" class=" text-center" style="display: none;">
+                        <div class="top-box">
+                            <div class="youwin">
+                                <h1 style="color: black;">You Win !!</h1>
+                            </div>
+                            <div class="btn-back">
+                                <img src="picture/back.png" width="50vw" height="50vw" onclick="window.location.href='ingame.html'">
+                            </div>
+                        </div>
+
+                        <div class="box-in">
+                            <div class="exp">
+                                <h2>Total EXP</h2>
+                                <h2>+150</h2>
+                            </div>
+                            <div class="coins">
+                                <h2>Coins</h2>
+                                <h2>
+                                    <img src="picture/image 6.png" width="45vw" height="45vw"> +50
+                                </h2>
+                            </div>
+                            <button type="button" class="btn-share mt-5" onclick="sharefb()">Share on Facebook</button>
+                        </div>
+                        <button type="button" class="btn-again mt-3" onclick="handleRestartGame()">Play Again</button>
+                    </div>
+                    <!-- END PAGE WIN -->
+
+
+                    <!-- PAGE LOSE -->
+                    <div id="page-lose" class=" text-center" style="display: none;">
+                        <div class="top-box">
+                            <div class="youlose">
+                                <h1 style="color: black;">You Lose !</h1>
+                            </div>
+                            <div class="btn-back">
+                                <img src="picture/back.png" width="50vw" height="50vw" onclick="window.location.href='ingame.html'">
+                            </div>
+                        </div>
+
+                        <div class="box-in">
+                            <div class="coins">
+                                <h2>Coins</h2>
+                                <h2>
+                                    <img src="picture/image 6.png" width="45vw" height="45vw"> +20
+                                </h2>
+                            </div>
+                            <button type="button" class="btn-share mt-5" onclick="sharefb()">Share on Facebook</button>
+                        </div>
+                        <button type="button" class="btn-again mt-3">Play Again</button>
+                    </div>
+                    <!-- END PAGE LOSE -->
+
+                    <!-- PAGE WAITING -->
+                    <div id="page-wait" class=" text-center" tyle="display: none;">
                         <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
                         </div>
                         <div class="mt-3">Waiting for players</div>
 
                     </div>
+                    <!-- END PAGE WAITING -->
+
+                    <!-- PAGE countdown -->
                     <div id="countdown" class="position-absolute" style="top:20px; left:20px;"></div>
+                    <!-- END PAGE countdown -->
+
+                    <!-- PAGE buyPhase -->
                     <div id="page-buyPhase" class="position-absolute" style="display: none;">
                         <div class="head text-center">
                             Buy Phase
@@ -99,9 +163,12 @@
                             </div>
                         </div>
                     </div>
+                    <!-- END PAGE buyPhase -->
 
 
+                    <!-- PAGE game -->
                     <div style="display: none;" class="" id="page-game">
+                        <!-- END PAGE game -->
 
                         <!-- <div class="room">
                     <div class="btn-back  text-end">
@@ -147,7 +214,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex">
+                <div class="d-flex" style="height: 0;" id="page-game">
                     <div class="product-card"></div>
                     <div class="product-card2"></div>
                 </div>
@@ -205,6 +272,9 @@
             <div id="player-score"></div>
         </div>
     </div>
+
+
+
     <!-- <div style="height:120px; width:500px" class="row" id="row-1">
                             <div class="col border justify-content-center align-items-center table-col" id="row-1-col-1">
                                 <p class="display-5"></p>

@@ -275,6 +275,9 @@
 //     })
 // }
 
+
+var currentUserData
+
 //ระบบเล่นเกม,ต้องมีid=cell
 var url_string = window.location.href;
 
@@ -290,6 +293,7 @@ const statusDisplay = document.querySelector(".status");
 let gameActive = true;
 let currentPlayer = "X";
 let gameState = ["", "", "", "", "", "", "", "", ""];
+let gameStatus = "playing"
 
 const winningMessage = () => `Player ${currentPlayer} win!`;
 const drawMessage = () => `Game ended in a draw!`;
@@ -334,23 +338,34 @@ async function handleResultValidation(updateCheck) {
         }
     }
     let roundDraw = !gameState.includes("");
+
+    if(roundWon) {
+        gameStatus = "win"
+    }
+
+    if(roundDraw) {
+        gameStatus = "draw"
+    }
+
     if(!updateCheck) {
         if(!roundWon && !roundDraw) {
             handlePlayerChange();
         }
         await update()
     }
+
     if(roundWon) {
         statusDisplay.innerHTML = winningMessage();
-        gameActive = false;
-        return 'win'
+        // gameActive = false;
+        gameStatus = "win"
+        return "win"
     }
-
 
     if(roundDraw) {
         statusDisplay.innerHTML = drawMessage();
-        gameActive = false;
-        return 'Draw'
+        // gameActive = false;
+        gameStatus = "draw"
+        return "draw"
     }
 
 }
@@ -381,18 +396,33 @@ async function handleCellChange(player, clickedCellIndex) {
     }
 }
 
-
-function handleRestartGame() {
+async function handleRestartGame() {
     gameActive = true;
     currentPlayer = "X";
     gameState = ["", "", "", "", "", "", "", "", ""];
+    gameStatus = "playing"
+
     statusDisplay.innerHTML = currentPlayerTurn();
-    document.querySelectorAll("#cell").forEach((cell) => (cell.innerHTML = ""));
+    // document.querySelectorAll("#cell").forEach((cell) => (cell.innerHTML = ""));
+    for(let i = 0; i < gameState.length; i++) {
+        handleCellChange(gameState[i], i)
+    }
+
+    document.getElementById("page-game").style.display = "block"
+    document.getElementById("page-wait").style.display = "none"
+    document.getElementById("page-win").style.display = "none"
+    document.getElementById("page-lose").style.display = "none"
+
+    await update()
 }
+
 async function update() {
+    console.log("Update");
     firebase.database().ref(`Room/${roomId}`).update({
         currentPlayer: currentPlayer,
-        gameState: gameState
+        gameState: gameState,
+        gameStatus: gameStatus,
+        gameActive: gameActive
     })
     console.log(gameState);
     console.log(currentPlayer);
@@ -402,7 +432,9 @@ async function matching() {
     var user
     firebase.auth().onAuthStateChanged((user_) => {
         user = user_
+        currentUserData = user_
     })
+
     var url_string = window.location.href;
 
     var url = new URL(url_string);
@@ -411,12 +443,14 @@ async function matching() {
 
     await room.once('value', (data) => {
         const dataState = data.val()
-        if(dataState.playerX.uid != user.uid) {
+        if((dataState.playerX.uid != user.uid) && !dataState.playerO) {
             join(roomId)
+        } else if(dataState.playerX && dataState.playerO) {
+
         }
     })
 
-
+    let playerCheck = 0
     room.on('value', function(snapshot) {
         const data = snapshot.val()
         if(data) {
@@ -427,17 +461,35 @@ async function matching() {
                 userPlayer = "X"
             }
             if(data.playerO) {
+                playerCheck++
                 document.getElementById("img-player-nd").innerHTML = `<img src='${data.playerO.photoURL}' width='40px' height='40px' style="border-radius: 50%">`
                 document.getElementById("name-player-nd").innerHTML = data.playerO.name
-                buyPhase()
                 if(user.uid == data.playerO.uid) {
                     userPlayer = "O"
                 }
+                // console.log(data.gameStatus);
+                if((playerCheck == 1) && (data.gameStatus == "buyPhase")) {
+                    console.log(playerCheck);
+                    buyPhase()
+                } else {
+                    if(data.gameStatus == "playing") {
+                        inPhase()
+                    } else {
+                        clearAll()
+                        if((data.gameStatus == "win") || (data.gameStatus == "gameOver")) {
+                            gameOver("win", data)
+                        } else if((data.gameStatus == "draw") || (data.gameStatus == "gameOver")) {
+                            gameOver("draw", data)
+                        }
+                    }
+                }
+
             } else {
                 document.getElementById("name-player-nd").innerHTML = "waiting for player "
             }
             if(data.gameState) {
                 gameState = data.gameState
+                gameStatus = data.gameStatus
                 currentPlayer = data.currentPlayer
                 for(let i = 0; i < gameState.length; i++) {
                     handleCellChange(gameState[i], i)
@@ -465,12 +517,127 @@ async function join(room_id) {
                         name: user.displayName,
                         photoURL: user.photoURL
                     },
+                    gameStatus: "buyPhase"
                 })
             }
         })
         console.log("return");
         return
     }
+}
+
+function gameOver(status, dataRoom) {
+    clearAll()
+    document.getElementById("countdown").innerHTML = ""
+    document.getElementById("page-game").style.display = "none"
+    document.getElementById("page-wait").style.display = "none"
+
+    if((status == "win")) {
+
+        console.log(currentPlayer, " WIN");
+
+        if(currentPlayer == "X") {
+            const userData = firebase.database().ref(`User/${dataRoom.playerX.uid}`)
+
+            userData.once('value', (data) => {
+                const dataState = data.val()
+
+                if(dataRoom.playerX.uid == currentUserData.uid) {
+                    document.getElementById("page-win").style.display = "block"
+
+                    if(dataRoom.gameStatus != "gameOver") {
+                        userData.update({
+                            exp: dataState.exp + 150,
+                            coins: dataState.coins + 50,
+                        })
+                        document.querySelector("#profile-coins").innerHTML = dataState.coins + 50
+                    }
+
+                } else {
+                    document.getElementById("page-lose").style.display = "block"
+
+                    if(dataRoom.gameStatus != "gameOver") {
+                        const userDataLose = firebase.database().ref(`User/${dataRoom.playerO.uid}`)
+                        userDataLose.once('value', (dataLose) => {
+                            const dataStateLose = dataLose.val()
+                            userDataLose.update({
+                                coins: dataStateLose.coins + 20,
+                            })
+
+                            document.querySelector("#profile-coins").innerHTML = dataStateLose.coins + 20
+                        })
+
+                    }
+                }
+            })
+        }
+
+        if(currentPlayer == "O") {
+            const userData = firebase.database().ref(`User/${dataRoom.playerO.uid}`)
+
+            userData.once('value', (data) => {
+                const dataState = data.val()
+
+                if(dataRoom.playerO.uid == currentUserData.uid) {
+                    document.getElementById("page-win").style.display = "block"
+
+                    if(dataRoom.gameStatus != "gameOver") {
+                        userData.update({
+                            exp: dataState.exp + 150,
+                            coins: dataState.coins + 50,
+                        })
+                        document.querySelector("#profile-coins").innerHTML = dataState.coins + 50
+                    }
+
+                } else {
+                    document.getElementById("page-lose").style.display = "block"
+
+                    if(dataRoom.gameStatus != "gameOver") {
+                        const userDataLose = firebase.database().ref(`User/${dataRoom.playerX.uid}`)
+                        userDataLose.once('value', (dataLose) => {
+                            const dataStateLose = dataLose.val()
+                            userDataLose.update({
+                                coins: dataStateLose.coins + 20,
+                            })
+
+                            document.querySelector("#profile-coins").innerHTML = dataStateLose.coins + 20
+                        })
+                    }
+                }
+            })
+        }
+
+        const room = firebase.database().ref(`Room/${roomId}`)
+        room.update({
+            gameStatus: "gameOver"
+        })
+
+    } else {
+        console.log("DRAW");
+    }
+}
+
+function clearAll() {
+    console.log("clearAll")
+    for(i = 0; i < 1000; i++) {
+        window.clearInterval(i);
+        window.clearTimeout(i);
+    }
+}
+
+function inPhase() {
+    console.log("inPhase")
+    clearAll()
+    timer(10);
+    setTimeout(changePlayer, 10 * 1000)
+    playState()
+
+}
+
+async function changePlayer() {
+    clearAll()
+    handlePlayerChange()
+    await update()
 }
 
 function buyPhase() {
@@ -482,22 +649,24 @@ function buyPhase() {
 
 function playState() {
     console.log("playState");
-    document.getElementById("page-game").style.display = "block"
+    document.getElementById("page-wait").style.display = "none"
     document.getElementById("page-buyPhase").style.display = "none"
-
+    document.getElementById("page-win").style.display = "none"
+    document.getElementById("page-lose").style.display = "none"
+    document.getElementById("page-game").style.display = "block"
 }
 
 function timer(timeleft) {
     var downloadTimer = setInterval(function() {
         if(timeleft <= 0) {
             clearInterval(downloadTimer);
-            document.getElementById("countdown").innerHTML = "Finished";
+            document.getElementById("countdown").innerHTML = ""
         } else {
             document.getElementById("countdown").innerHTML = timeleft + " seconds remaining";
         }
         timeleft -= 1;
-        console.log(timeleft);
     }, 1000);
+    return downloadTimer
 }
 
 

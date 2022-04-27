@@ -61,7 +61,8 @@ async function update(user) {
             name: user.displayName,
             photoURL: user.photoURL
         },
-        playerO: {}
+        playerO: {},
+        gameStatus: "waiting"
     })
 }
 // สร้างID
@@ -94,6 +95,7 @@ async function join(room_id) {
                         name: user.displayName,
                         photoURL: user.photoURL
                     },
+                    gameStatus: "buyPhase"
                 })
                 window.location.href = "/inmatch.html?roomId=" + room_id
             }
