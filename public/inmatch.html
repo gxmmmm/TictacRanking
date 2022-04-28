@@ -58,7 +58,7 @@
             <div class="box" id="box-main">
                 <div class="room  justify-content-center position-relative">
                     <div class="btn-back position-absolute" style="top:10px; right:0px;">
-                        <img src="/picture/Frame.png" width="50vw" height="50vw" onclick="window.location.href='ingame.html'">
+                        <img id="back-btn" src="/picture/Frame.png" width="50vw" height="50vw" onclick="window.location.href='ingame.html'">
                     </div>
 
                     <!-- PAGE WIN -->
@@ -67,9 +67,9 @@
                             <div class="youwin">
                                 <h1 style="color: black;">You Win !!</h1>
                             </div>
-                            <div class="btn-back">
+                            <!-- <div class="btn-back position-absolute" style="top:10px; right:0px;">
                                 <img src="picture/back.png" width="50vw" height="50vw" onclick="window.location.href='ingame.html'">
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="box-in">
@@ -96,9 +96,9 @@
                             <div class="youlose">
                                 <h1 style="color: black;">You Lose !</h1>
                             </div>
-                            <div class="btn-back">
+                            <!-- <div class="btn-back">
                                 <img src="picture/back.png" width="50vw" height="50vw" onclick="window.location.href='ingame.html'">
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="box-in">
@@ -110,7 +110,7 @@
                             </div>
                             <button type="button" class="btn-share mt-5" onclick="sharefb()">Share on Facebook</button>
                         </div>
-                        <button type="button" class="btn-again mt-3">Play Again</button>
+                        <button type="button" class="btn-again mt-3" onclick="handleRestartGame()">Play Again</button>
                     </div>
                     <!-- END PAGE LOSE -->
 
@@ -142,9 +142,9 @@
                                 </div>
                                 <div class="btn-card">
                                     <button type="button" class="btndelete" onclick="deleteFunction()">-</button>
-                                    <div class="stock">1</div>
+                                    <div class="stock_swap">1</div>
                                     <button type="button" class="btnplus" onclick="plusFunction()">+</button>
-                                    <button type="button" class="btn-price" id="card_price1" onclick="buyCard1('card_price1')">300</button>
+                                    <button type="button" class="btn-price" id="card_swap" onclick="buyCard1('card_swap', 'stock_swap')">300</button>
                                 </div>
                             </div>
                             <div class="product-card-bp">
@@ -156,9 +156,9 @@
                                 </div>
                                 <div class="btn-card">
                                     <button type="button" class="btndelete" onclick="deleteFunction2()">-</button>
-                                    <div class="stock2">1</div>
+                                    <div class="stock_clear">1</div>
                                     <button type="button" class="btnplus" onclick="plusFunction2()">+</button>
-                                    <button type="button" class="btn-price" id="card_price2" onclick="buyCard1('card_price2')">300</button>
+                                    <button type="button" class="btn-price" id="card_clear" onclick="buyCard1('card_clear', 'stock_clear')">300</button>
                                 </div>
                             </div>
                         </div>
@@ -214,11 +214,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex" style="height: 0;" id="page-game">
-                    <div class="product-card"></div>
-                    <div class="product-card2"></div>
+                <div class="d-flex" id="page-game">
+                    <div class="product-card" id="card1"></div>
+                    <div class="product-card2" id="card2"></div>
                 </div>
-                <div class="button">
+                <div class="button" id="player-data">
                     <div class="leftbutton">
                         <button class="btnfind d-block" type="">
                             <div class="d-flex justify-content-between">
@@ -269,8 +269,14 @@
                 <button type="button" class="btn btn-light">1</button>
                 <button type="button" class="btn btn-light">8</button>
             </div>
-            <div id="player-score"></div>
+            <div class="mb-1 mt-1">
+                <table class="table table-borderless">
+                    <tbody id="show-player-score"></tbody>
+                </table>
+            </div>
         </div>
+
+
     </div>
 
 
@@ -328,6 +334,7 @@
     <script type="text/javascript" src="game.js"></script>
     <script type="text/javascript" src="matchingRoom.js"></script>
     <script type="text/javascript" src="shop.js"></script>
+    <script type="text/javascript" src="scoreBoard.js"></script>
 </body>
 
 </html>

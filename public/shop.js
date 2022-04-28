@@ -1,9 +1,9 @@
-num = document.querySelector(`.stock`).innerHTML
-console.log(num)
-
+// num = document.querySelector(`.stock_swap`).innerHTML
+// console.log(num)
+var roomId
 const plusFunction = () => {
-    let stockElement = document.querySelector(`.stock`)
-    let priceElement = document.querySelector(`#card_price1`)
+    let stockElement = document.querySelector(`.stock_swap`)
+    let priceElement = document.querySelector(`#card_swap`)
     num = stockElement.innerHTML
     num++
     if(num >= 2) {
@@ -14,8 +14,8 @@ const plusFunction = () => {
 }
 
 const deleteFunction = () => {
-    let stockElement = document.querySelector(`.stock`)
-    let priceElement = document.querySelector(`#card_price1`)
+    let stockElement = document.querySelector(`.stock_swap`)
+    let priceElement = document.querySelector(`#card_swap`)
     num = stockElement.innerHTML
     num--
     if(num <= 1) {
@@ -25,12 +25,12 @@ const deleteFunction = () => {
     priceElement.innerHTML = 300 * num
 }
 
-num = document.querySelector(`.stock2`).innerHTML
-console.log(num)
+// num = document.querySelector(`.stock_clear`).innerHTML
+// console.log(num)
 
 const plusFunction2 = () => {
-    let stockElement = document.querySelector(`.stock2`)
-    let priceElement = document.querySelector(`#card_price2`)
+    let stockElement = document.querySelector(`.stock_clear`)
+    let priceElement = document.querySelector(`#card_clear`)
     num = stockElement.innerHTML
     num++
     if(num >= 2) {
@@ -41,8 +41,8 @@ const plusFunction2 = () => {
 }
 
 const deleteFunction2 = () => {
-    let stockElement = document.querySelector(`.stock2`)
-    let priceElement = document.querySelector(`#card_price2`)
+    let stockElement = document.querySelector(`.stock_clear`)
+    let priceElement = document.querySelector(`#card_clear`)
     num = stockElement.innerHTML
     num--
     if(num <= 1) {
@@ -51,13 +51,16 @@ const deleteFunction2 = () => {
     stockElement.innerHTML = num
     priceElement.innerHTML = 300 * num
 }
-const buyCard1 = (card) => {
+const buyCard1 = (card, stock) => {
     let priceElement = document.querySelector(`#${card}`)
     const price1 = priceElement.innerHTML
-    buyItem(price1)
+
+    let stockElement = document.querySelector(`.${stock}`)
+    const stock1 = stockElement.innerHTML
+    buyItem(price1, stock1, card)
 }
 
-const buyItem = (price) => {
+const buyItem = (price, stock, card) => {
     var user = firebase.auth().currentUser
     const userData = firebase.database().ref(`User/${user.uid}`)
     userData.once('value', (data) => {
@@ -67,11 +70,11 @@ const buyItem = (price) => {
             var userCoin = dataState.coins
             var coinLeft = userCoin - price
             if(coinLeft >= 0) {
-                console.log("success");
                 document.querySelector("#profile-coins").innerHTML = coinLeft
                 userData.update({
                     coins: coinLeft
                 })
+                updateRoom(user, card, stock)
             } else {
                 console.log('mai por');
             }
@@ -79,3 +82,34 @@ const buyItem = (price) => {
         }
     })
 }
+
+function updateRoom(user, card, stock) {
+    const room = firebase.database().ref(`Room/${roomId}`)
+    room.once('value', (data) => {
+        const dataRoom = data.val()
+
+        if(dataRoom.playerX.uid == user.uid) {
+            room.update({
+                swapCard: card == "card_swap" ? stock : (dataRoom.playerX.swapCard || 0),
+                clearCard: card == "card_clear" ? stock : (dataRoom.playerX.clearCard || 0),
+            })
+        }
+
+        if(dataRoom.playerO.uid == user.uid) {
+            room.update({
+                swapCard: card == "card_swap" ? stock : (dataRoom.playerX.swapCard || 0),
+                clearCard: card == "card_clear" ? stock : (dataRoom.playerX.clearCard || 0),
+            })
+        }
+    })
+}
+
+function init() {
+
+    var url_string = window.location.href;
+
+    var url = new URL(url_string);
+    roomId = url.searchParams.get("roomId");
+}
+
+document.addEventListener("DOMContentLoaded", init, false);

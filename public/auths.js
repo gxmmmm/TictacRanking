@@ -2,7 +2,6 @@ const btnLogin = document.querySelector("#btnLogin");
 btnLogin.addEventListener('click', loginUser)
 
 firebase.auth().onAuthStateChanged((user) => {
-    console.log('User: ', user);
     const userData = firebase.database().ref(`User/${user.uid}`)
     userData.once('value', (data) => {
             const dataState = data.val()

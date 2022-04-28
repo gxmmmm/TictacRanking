@@ -454,9 +454,11 @@ async function matching() {
     room.on('value', function(snapshot) {
         const data = snapshot.val()
         if(data) {
-            console.log(data);
+            console.log("player", data.playerX);
             document.getElementById("img-player-st").innerHTML = `<img src='${data.playerX.photoURL}' width='40px' height='40px' style="border-radius: 50%">`
             document.getElementById("name-player-st").innerHTML = data.playerX.name
+            document.getElementById("scoreX").innerHTML = data.playerX.win
+
             if(user.uid == data.playerX.uid) {
                 userPlayer = "X"
             }
@@ -464,6 +466,7 @@ async function matching() {
                 playerCheck++
                 document.getElementById("img-player-nd").innerHTML = `<img src='${data.playerO.photoURL}' width='40px' height='40px' style="border-radius: 50%">`
                 document.getElementById("name-player-nd").innerHTML = data.playerO.name
+                document.getElementById("scoreO").innerHTML = data.playerO.win
                 if(user.uid == data.playerO.uid) {
                     userPlayer = "O"
                 }
@@ -515,7 +518,10 @@ async function join(room_id) {
                     playerO: {
                         uid: user.uid,
                         name: user.displayName,
-                        photoURL: user.photoURL
+                        photoURL: user.photoURL,
+                        swapCard: 0,
+                        clearCard: 0,
+                        win: 0
                     },
                     gameStatus: "buyPhase"
                 })
@@ -527,14 +533,28 @@ async function join(room_id) {
 }
 
 function gameOver(status, dataRoom) {
+    console.log("gameOver");
     clearAll()
     document.getElementById("countdown").innerHTML = ""
     document.getElementById("page-game").style.display = "none"
     document.getElementById("page-wait").style.display = "none"
 
     if((status == "win")) {
+        document.getElementById("player-data").style.display = "none"
+        document.getElementById("card1").style.height = "0";
+        document.getElementById("card2").style.height = "0";
 
         console.log(currentPlayer, " WIN");
+        document.getElementById("box-main").className = "box-win";
+        document.getElementById("back-btn").src = "picture/back.png";
+
+        const room = firebase.database().ref(`Room/${roomId}`)
+
+        const playerX = dataRoom.playerX
+        const playerO = dataRoom.playerO
+
+        playerX.win = currentPlayer == "X" ? dataRoom.playerX.win + 1 : dataRoom.playerX.win
+        playerO.win = currentPlayer == "O" ? dataRoom.playerO.win + 1 : dataRoom.playerO.win
 
         if(currentPlayer == "X") {
             const userData = firebase.database().ref(`User/${dataRoom.playerX.uid}`)
@@ -586,6 +606,8 @@ function gameOver(status, dataRoom) {
                             exp: dataState.exp + 150,
                             coins: dataState.coins + 50,
                         })
+
+
                         document.querySelector("#profile-coins").innerHTML = dataState.coins + 50
                     }
 
@@ -607,7 +629,6 @@ function gameOver(status, dataRoom) {
             })
         }
 
-        const room = firebase.database().ref(`Room/${roomId}`)
         room.update({
             gameStatus: "gameOver"
         })
@@ -649,11 +670,17 @@ function buyPhase() {
 
 function playState() {
     console.log("playState");
+    document.getElementById("box-main").className = "box";
     document.getElementById("page-wait").style.display = "none"
     document.getElementById("page-buyPhase").style.display = "none"
     document.getElementById("page-win").style.display = "none"
     document.getElementById("page-lose").style.display = "none"
+    document.getElementById("player-data").style.display = "flex"
     document.getElementById("page-game").style.display = "block"
+
+    document.getElementById("card1").style.height = null;
+    document.getElementById("card2").style.height = null;
+    document.getElementById("back-btn").src = "/picture/Frame.png";
 }
 
 function timer(timeleft) {
@@ -662,7 +689,7 @@ function timer(timeleft) {
             clearInterval(downloadTimer);
             document.getElementById("countdown").innerHTML = ""
         } else {
-            document.getElementById("countdown").innerHTML = timeleft + " seconds remaining";
+            document.getElementById("countdown").innerHTML = timeleft + "";
         }
         timeleft -= 1;
     }, 1000);

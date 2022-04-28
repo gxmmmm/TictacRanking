@@ -1,50 +1,5 @@
 let roomId
-
-function matching() {
-
-
-    // refRoom.push({
-    //     playerX: currentUser.uid
-    // })
-    // console.log('mee')
-    // console.log(currentUser);
-    // refRoom.once('value', (data) => {
-    //     const dataState = data.val()
-    //     console.log(dataState);
-    //     let found = false
-    //     for (const roomId in dataState) {
-    //         console.log(roomId);
-    //         console.log(dataState[roomId]);
-    //         console.log(dataState.playerX);
-    //         const room = dataState[roomId]
-    //         if (!room['playerX']) {
-    //             console.log('no X');
-    //             refRoom.child(roomId).update({
-    //                 playerX: currentUser.uid
-    //             })
-    //             found = true
-    //             document.querySelector('#btn-match').disabled = true
-    //             return
-    //         } else if (!room['playerO']) {
-    //             console.log('no O');
-    //             refRoom.child(roomId).update({
-    //                 playerO: ""
-    //             })
-    //             found = true
-    //             document.querySelector('#btn-match').disabled = true
-    //             return
-    //         }
-    //     }
-
-    //         if (!found) {
-    //             refRoom.push({
-    //                 playerX: currentUser.uid
-    //             })
-    //             document.querySelector('#btn-match').disabled = true
-    //         }
-    //     })
-}
-//สร้างห้อง
+    //สร้างห้อง
 async function handleCreateNewRoom() {
     const currentUser = firebase.auth().currentUser
     roomId = makeid(5)
@@ -59,7 +14,10 @@ async function update(user) {
         playerX: {
             uid: user.uid,
             name: user.displayName,
-            photoURL: user.photoURL
+            photoURL: user.photoURL,
+            swapCard: 0,
+            clearCard: 0,
+            win: 0
         },
         playerO: {},
         gameStatus: "waiting"
@@ -93,7 +51,10 @@ async function join(room_id) {
                     playerO: {
                         uid: user.uid,
                         name: user.displayName,
-                        photoURL: user.photoURL
+                        photoURL: user.photoURL,
+                        swapCard: 0,
+                        clearCard: 0,
+                        win: 0
                     },
                     gameStatus: "buyPhase"
                 })
@@ -121,6 +82,7 @@ async function join(room_id) {
                             name: user.displayName,
                             photoURL: user.photoURL
                         },
+                        gameStatus: "buyPhase"
                     })
                     window.location.href = "/inmatch.html?roomId=" + roomId
                     return
@@ -131,13 +93,16 @@ async function join(room_id) {
     }
 }
 
+// สร้างรายการห้องที่สามารถ Join ได้
 function renderRoom() {
     const room = firebase.database().ref(`Room`)
-    room.once('value', (data) => {
+
+    // subscribe รายชื่อห้อง
+    room.on('value', (data) => {
         const dataState = data.val()
         const roomDiv = document.createElement("div")
         let i = 1
-        const user = firebase.auth().currentUser
+            // const user = firebase.auth().currentUser
         for(const roomId in dataState) {
             if(dataState[roomId].playerO && dataState[roomId].playerX) {
                 continue
@@ -164,7 +129,6 @@ function renderRoom() {
                 btn.setAttribute("onclick", `join('${roomId}')`)
 
             }
-
             cardBody.appendChild(h5_1)
             cardBody.appendChild(h5_2)
             cardBody.appendChild(h5_3)
@@ -172,13 +136,10 @@ function renderRoom() {
             card.appendChild(cardBody)
             roomDiv.appendChild(card)
             i++
-
-
-
-
         }
-        document.getElementById("allRoom").appendChild(roomDiv)
-
+        document.getElementById("allRoom").innerHTML = roomDiv.innerHTML
     })
 }
+
+
 document.addEventListener("DOMContentLoaded", renderRoom, false);

@@ -7,7 +7,7 @@ const loginItems = document.querySelectorAll('.logged-in');
 
 function setupUI(user, dataState) {
     if(user) {
-        document.querySelector("#profile-image").innerHTML = `<img src='${user.photoURL}' width='40px' height='40px' style="border-radius: 50%">`
+        document.querySelector("#profile-image").innerHTML = `<img src='${user.photoURL}' width='40px' height='40px' style="border-radius: 50%" referrerpolicy="no-referrer">`
         profileName = document.querySelector("#profile-name").innerHTML = user.displayName
         loginItems.forEach((item) => {
             item.style.display = 'inline-block'
