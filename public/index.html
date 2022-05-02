@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TictacRanking</title>
-    <link rel="stylesheet" href="ball.css">
+    <link rel="stylesheet" href="index.css">
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
@@ -22,7 +22,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
+        <div class="container-fluid">
             <a href="#" class="navbar-brand" style="font-size: 30px; font-family: 'Kalam', cursive;">
                 <img src="/picture/logo.png" alt="" width="60" height="60" class="d-inline-block" style="vertical-align: text-bottom;"> TictacRanking</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,24 +58,7 @@
             </div>
         </div>
         <!-- END how-to-play Modal -->
-        <div class="left">
             <div class="box">
-                <div class="quick">
-                    <h3 style="margin-top: 10%; color: #FFCC0A; font-family: 'Kalam', cursive;">Quick Play</h3>
-                    <svg class="m-2" width="88" height="88" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0 43.9748C0 19.6882 19.6993 0 44 0C68.3007 0 88 19.6882 88 43.9748C88 68.2617 68.3007 87.9497 44 87.9497C19.6993 87.9497 0 68.2617 0 43.9748Z" fill="#CFCFCF"/>
-                        <path d="M43.9999 53.747C54.8001 53.747 63.5554 44.9967 63.5554 34.2026C63.5554 23.4086 54.8001 14.6583 43.9999 14.6583C33.1997 14.6583 24.4443 23.4086 24.4443 34.2026C24.4443 44.9967 33.1997 53.747 43.9999 53.747Z" fill="white"/>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M74.4134 74.4943C74.6979 74.9654 74.6109 75.5683 74.2109 75.9455C66.3296 83.387 55.6982 87.9497 44.0001 87.9497C32.3024 87.9497 21.6706 83.3875 13.7897 75.946C13.3898 75.5683 13.3027 74.9659 13.5873 74.4948C19.2789 65.073 30.7619 58.6331 44.0006 58.6331C57.2387 58.6331 68.7217 65.0725 74.4134 74.4943Z" fill="white"/>
-                    </svg>
-                    <div class="input-group mb-2" style="max-width: 20vw; margin: auto; font-family: 'Kalam', cursive; color: black;">
-                        <span class="input-group-text" id="basic-addon1"> <i class="bi bi-terminal-fill"></i></span>
-                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                    </div>
-                    <div class="d-grid gap-2" style="max-width: 20vw; margin: auto; font-family: 'Kalam', cursive;">
-                        <button class="btnfind" type="button">Find Opponent </button>
-                        <button class="btn btn-success" type="button">Play with a Friand</button>
-                    </div>
-                </div>
                 <div class="create">
                     <h3 style="margin-top: 10%; color: white; font-family: 'Kalam', cursive;">Login</h3>
                     <div class="share" style="margin-top: 5%;">
@@ -106,25 +89,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="right">
-            <div id="time">
-                <svg class="p-1" width="53" height="53" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M26.5 52.375C40.7905 52.375 52.375 40.7905 52.375 26.5C52.375 12.2096 40.7905 0.625 26.5 0.625C12.2096 0.625 0.625 12.2096 0.625 26.5C0.625 40.7905 12.2096 52.375 26.5 52.375ZM29.375 10.6875C29.375 9.0997 28.0879 7.8125 26.5 7.8125C24.9121 7.8125 23.625 9.0997 23.625 10.6875V25.7812C23.625 27.7661 25.2339 29.375 27.2188 29.375H36.5625C38.1504 29.375 39.4375 28.0879 39.4375 26.5C39.4375 24.9121 38.1504 23.625 36.5625 23.625H29.375V10.6875Z" fill="white"/>
-                </svg>
-                <!-- <button type="button" class="btn btn-light">0</button>
-                <button type="button" class="btn btn-light">8</button>
-                <span class="span-time">:</span>
-                <button type="button" class="btn btn-light">0</button>
-                <button type="button" class="btn btn-light">8</button>
-                <span class="span-time">:</span>
-                <button type="button" class="btn btn-light">1</button>
-                <button type="button" class="btn btn-light">8</button> -->
-                Score Board
-            </div>
-            <div id="player-score"></div>
-        </div>
     </div>
 
     <script>
