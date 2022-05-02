@@ -26,7 +26,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
+        <div class="container-fluid">
             <a href="#" class="navbar-brand" style="font-size: 30px; font-family: 'Kalam', cursive;">
                 <img src="/public/picture/logo.png" alt="" width="60" height="60" class="d-inline-block" style="vertical-align: text-bottom;"> TictacRanking
             </a>
@@ -107,22 +107,24 @@
         </div>
 
         <div class="right ">
-            <div id="time">
-                <svg class="p-1 " width="53 " height="53 " viewBox="0 0 53 53 " fill="none " xmlns="http://www.w3.org/2000/svg ">
-                    <path fill-rule="evenodd " clip-rule="evenodd " d="M26.5 52.375C40.7905 52.375 52.375 40.7905 52.375 26.5C52.375 12.2096 40.7905 0.625 26.5 0.625C12.2096 0.625 0.625 12.2096 0.625 26.5C0.625 40.7905 12.2096 52.375 26.5 52.375ZM29.375
-                            10.6875C29.375 9.0997 28.0879 7.8125 26.5 7.8125C24.9121 7.8125 23.625 9.0997 23.625 10.6875V25.7812C23.625 27.7661 25.2339 29.375 27.2188 29.375H36.5625C38.1504 29.375 39.4375 28.0879 39.4375 26.5C39.4375 24.9121 38.1504 23.625
-                            36.5625 23.625H29.375V10.6875Z " fill="white "/>
-                </svg>
-                <button type="button " class="btn btn-light " id="hour1"></button>
-                <button type="button " class="btn btn-light " id="hour2"></button>
+            <div class="time ">
+                <img src="picture/reward.png" width="50vw">
+                <!-- <button type="button " class="btn btn-light ">0</button>
+                <button type="button " class="btn btn-light ">8</button>
                 <span class="span-time ">:</span>
-                <button type="button " class="btn btn-light " id="min1"></button>
-                <button type="button " class="btn btn-light " id="min2"></button>
+                <button type="button " class="btn btn-light ">0</button>
+                <button type="button " class="btn btn-light ">8</button>
                 <span class="span-time ">:</span>
-                <button type="button " class="btn btn-light " id="sec1"></button>
-                <button type="button " class="btn btn-light " id="sec2"></button>
+                <button type="button " class="btn btn-light ">1</button>
+                <button type="button " class="btn btn-light ">8</button> -->
+                Score Board
             </div>
-            <div id="player-score "></div>
+
+            <div class="mb-1 mt-1">
+                <table class="table table-borderless">
+                    <tbody id="show-player-score"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -141,7 +143,8 @@
     </script>
     <script type="text/javascript " src="shop.js"></script>
     <script type="text/javascript " src="time.js"></script>
-    <!-- <script type="text/javascript " src="auth.js "></script> -->
+    <script type="text/javascript " src="auth.js "></script>
+    <script type="text/javascript" src="scoreBoard.js"></script>
 </body>
 
 </html>
