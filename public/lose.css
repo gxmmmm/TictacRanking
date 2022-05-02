@@ -177,13 +177,14 @@ body {
     flex-direction: column;
 }
 
-#time {
+.time {
     text-align: center;
-    margin-top: 0px;
+    color: black;
+    font-size: 30px;
+    margin: 10px;
 }
 
-
-/* .table {
+.table {
     flex: 4;
     display: flex;
     align-items: center;
@@ -223,4 +224,4 @@ body {
     line-height: 100px;
     font-size: 60px;
     text-align: center;
-} */
+}
