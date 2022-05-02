@@ -126,8 +126,12 @@ body {
 .time {
     text-align: center;
     color: black;
-    font-size: 30px;
+    font-size: 2vw;
     margin: 10px;
+}
+
+#show-player-score {
+    font-size: 1.1vw;
 }
 
 .table {
