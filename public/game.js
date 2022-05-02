@@ -294,6 +294,8 @@ let gameActive = true;
 let currentPlayer = "X";
 let gameState = ["", "", "", "", "", "", "", "", ""];
 let gameStatus = "playing"
+let playerX
+let playerO
 
 const winningMessage = () => `Player ${currentPlayer} win!`;
 const drawMessage = () => `Game ended in a draw!`;
@@ -396,7 +398,12 @@ async function handleCellChange(player, clickedCellIndex) {
     }
 }
 
-async function handleRestartGame() {
+async function handleRestartGame(player) {
+    if(player == "X") {
+        playerX.clearCard = playerX.clearCard - 1
+    } else if(player == "O") {
+        playerO.clearCard = playerO.clearCard - 1
+    }
     gameActive = true;
     currentPlayer = "X";
     gameState = ["", "", "", "", "", "", "", "", ""];
@@ -416,18 +423,6 @@ async function handleRestartGame() {
     await update()
 }
 
-async function update() {
-    console.log("Update");
-    firebase.database().ref(`Room/${roomId}`).update({
-        currentPlayer: currentPlayer,
-        gameState: gameState,
-        gameStatus: gameStatus,
-        gameActive: gameActive
-    })
-    console.log(gameState);
-    console.log(currentPlayer);
-}
-
 async function matching() {
     var user
     firebase.auth().onAuthStateChanged((user_) => {
@@ -443,7 +438,7 @@ async function matching() {
 
     await room.once('value', (data) => {
         const dataState = data.val()
-        if((dataState.playerX.uid != user.uid) && !dataState.playerO) {
+        if((dataState.playerX.uid != currentUserData.uid) && !dataState.playerO) {
             join(roomId)
         } else if(dataState.playerX && dataState.playerO) {
 
@@ -454,11 +449,11 @@ async function matching() {
     room.on('value', function(snapshot) {
         const data = snapshot.val()
         if(data) {
-            console.log("player", data.playerX);
+            // console.log("player", data.playerX);
             document.getElementById("img-player-st").innerHTML = `<img src='${data.playerX.photoURL}' width='40px' height='40px' style="border-radius: 50%">`
             document.getElementById("name-player-st").innerHTML = data.playerX.name
             document.getElementById("scoreX").innerHTML = data.playerX.win
-
+            playerX = data.playerX
             if(user.uid == data.playerX.uid) {
                 userPlayer = "X"
             }
@@ -467,22 +462,35 @@ async function matching() {
                 document.getElementById("img-player-nd").innerHTML = `<img src='${data.playerO.photoURL}' width='40px' height='40px' style="border-radius: 50%">`
                 document.getElementById("name-player-nd").innerHTML = data.playerO.name
                 document.getElementById("scoreO").innerHTML = data.playerO.win
+                playerO = data.playerO
                 if(user.uid == data.playerO.uid) {
                     userPlayer = "O"
                 }
                 // console.log(data.gameStatus);
                 if((playerCheck == 1) && (data.gameStatus == "buyPhase")) {
                     console.log(playerCheck);
-                    buyPhase()
+                    if(userPlayer == "X") {
+                        buyPhase(data.playerX)
+                    }
+                    if(userPlayer == "O") {
+                        buyPhase(data.playerO)
+                    }
                 } else {
                     if(data.gameStatus == "playing") {
-                        inPhase()
+                        if(userPlayer == "X") {
+                            inPhase(data.playerX)
+                        }
+                        if(userPlayer == "O") {
+                            inPhase(data.playerO)
+                        }
                     } else {
-                        clearAll()
-                        if((data.gameStatus == "win") || (data.gameStatus == "gameOver")) {
-                            gameOver("win", data)
-                        } else if((data.gameStatus == "draw") || (data.gameStatus == "gameOver")) {
-                            gameOver("draw", data)
+                        if(data.gameStatus != "buyPhase") {
+                            clearAll()
+                            if((data.gameStatus == "win") || (data.gameStatus == "gameOver")) {
+                                gameOver("win", data)
+                            } else if((data.gameStatus == "draw") || (data.gameStatus == "gameOver")) {
+                                gameOver("draw", data)
+                            }
                         }
                     }
                 }
@@ -533,25 +541,27 @@ async function join(room_id) {
 }
 
 function gameOver(status, dataRoom) {
-    console.log("gameOver");
+    console.log("gameOver", status, currentPlayer, dataRoom.playerX.uid == currentUserData.uid);
     clearAll()
     document.getElementById("countdown").innerHTML = ""
     document.getElementById("page-game").style.display = "none"
     document.getElementById("page-wait").style.display = "none"
+    document.getElementById("page-card").style.display = "none"
+
+    const room = firebase.database().ref(`Room/${roomId}`)
 
     if((status == "win")) {
         document.getElementById("player-data").style.display = "none"
-        document.getElementById("card1").style.height = "0";
-        document.getElementById("card2").style.height = "0";
+            // document.getElementById("card1").style.height = "0";
+            // document.getElementById("card2").style.height = "0";
 
         console.log(currentPlayer, " WIN");
         document.getElementById("box-main").className = "box-win";
         document.getElementById("back-btn").src = "picture/back.png";
+        document.getElementById("page-card").style.display = "none"
 
-        const room = firebase.database().ref(`Room/${roomId}`)
-
-        const playerX = dataRoom.playerX
-        const playerO = dataRoom.playerO
+        playerX = dataRoom.playerX
+        playerO = dataRoom.playerO
 
         playerX.win = currentPlayer == "X" ? dataRoom.playerX.win + 1 : dataRoom.playerX.win
         playerO.win = currentPlayer == "O" ? dataRoom.playerO.win + 1 : dataRoom.playerO.win
@@ -635,6 +645,13 @@ function gameOver(status, dataRoom) {
 
     } else {
         console.log("DRAW");
+        document.getElementById("page-draw").style.display = "block"
+        document.getElementById("player-data").style.display = "none"
+        document.getElementById("page-card").style.display = "none"
+            // document.getElementById("card1").style.height = "0";
+            // document.getElementById("card2").style.height = "0";
+        document.getElementById("box-main").className = "box-win";
+        document.getElementById("back-btn").src = "picture/back.png";
     }
 }
 
@@ -646,41 +663,54 @@ function clearAll() {
     }
 }
 
-function inPhase() {
+function inPhase(data) {
     console.log("inPhase")
     clearAll()
     timer(10);
     setTimeout(changePlayer, 10 * 1000)
-    playState()
+    playState(data)
 
 }
 
-async function changePlayer() {
+async function changePlayer(player) {
+    if(player == "X") {
+        playerX.swapCard = playerX.swapCard - 1
+    } else if(player == "O") {
+        playerO.swapCard = playerO.swapCard - 1
+    }
     clearAll()
     handlePlayerChange()
     await update()
 }
 
-function buyPhase() {
+function buyPhase(data) {
     document.getElementById("page-wait").style.display = "none"
     document.getElementById("page-buyPhase").style.display = "block"
     timer(10)
-    setTimeout(playState, 11 * 1000)
+        // setTimeout(playState, 11 * 1000)
+    setTimeout(function() {
+        playState(data);
+    }, 11 * 1000)
+    setTimeout(function() {
+        update()
+    }, 11 * 1000)
 }
 
-function playState() {
+function playState(data) {
     console.log("playState");
     document.getElementById("box-main").className = "box";
     document.getElementById("page-wait").style.display = "none"
     document.getElementById("page-buyPhase").style.display = "none"
     document.getElementById("page-win").style.display = "none"
     document.getElementById("page-lose").style.display = "none"
+    document.getElementById("page-draw").style.display = "none"
     document.getElementById("player-data").style.display = "flex"
     document.getElementById("page-game").style.display = "block"
 
-    document.getElementById("card1").style.height = null;
-    document.getElementById("card2").style.height = null;
+    // document.getElementById("card1").style.height = null;
+    // document.getElementById("card2").style.height = null;
     document.getElementById("back-btn").src = "/picture/Frame.png";
+    renderCard(data)
 }
 
 function timer(timeleft) {
@@ -696,7 +726,62 @@ function timer(timeleft) {
     return downloadTimer
 }
 
+function renderCard(dataPlayer) {
+    console.log("render page-card", dataPlayer);
+    const box = document.getElementById("page-card")
+    box.innerHTML = ""
+    const card = []
+    let number = 1
 
+    for(let i = 1; i < Number(dataPlayer.swapCard) + 1; i++) {
+        let swapCard = document.createElement('div')
+        swapCard.setAttribute("class", "product-card" + number + " swapCard player" + userPlayer)
+        swapCard.setAttribute("onclick", `changePlayer('${userPlayer}')`)
+        card.push(swapCard)
+        number++
+    }
+
+    for(let i = 1; i < Number(dataPlayer.clearCard) + 1; i++) {
+        let clearCard = document.createElement('div')
+        clearCard.setAttribute("class", "product-card" + number + " clearCard player" + userPlayer)
+        clearCard.setAttribute("onclick", `handleRestartGame('${userPlayer}')`)
+        card.push(clearCard)
+        number++
+    }
+    card.forEach(elment => {
+        box.appendChild(elment)
+    })
+}
+
+async function update() {
+    console.log("Update", playerO);
+    if(playerX && playerO) {
+        firebase.database().ref(`Room/${roomId}`).update({
+            currentPlayer: currentPlayer,
+            gameState: gameState,
+            gameStatus: gameStatus,
+            gameActive: gameActive,
+            playerX: {...playerX },
+            playerO: {...playerO },
+        })
+    } else {
+        firebase.database().ref(`Room/${roomId}`).update({
+            currentPlayer: currentPlayer,
+            gameState: gameState,
+            gameStatus: gameStatus,
+            gameActive: gameActive
+        })
+    }
+    // firebase.database().ref(`Room/${roomId}`).update({
+    //     currentPlayer: currentPlayer,
+    //     gameState: gameState,
+    //     gameStatus: gameStatus,
+    //     gameActive: gameActive
+    // })
+
+    console.log(gameState);
+    console.log(currentPlayer);
+}
 
 document.addEventListener("DOMContentLoaded", matching, false);
 document

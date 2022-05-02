@@ -1,16 +1,23 @@
 // num = document.querySelector(`.stock_swap`).innerHTML
 // console.log(num)
 var roomId
+let stock1
+let stock2
 const plusFunction = () => {
-    let stockElement = document.querySelector(`.stock_swap`)
+    let stockElement1 = document.querySelector(`.stock_swap`)
+    let stockElement2 = document.querySelector(`.stock_clear`)
     let priceElement = document.querySelector(`#card_swap`)
-    num = stockElement.innerHTML
-    num++
-    if(num >= 2) {
-        num = 2
+    stock1 = Number(stockElement1.innerHTML)
+    stock2 = Number(stockElement2.innerHTML)
+
+    if(stock1 + stock2 < 2) {
+        stock1++
     }
-    stockElement.innerHTML = num
-    priceElement.innerHTML = 300 * num
+    if(stock1 >= 2) {
+        stock1 = 2
+    }
+    stockElement1.innerHTML = stock1
+    priceElement.innerHTML = 300 * stock1
 }
 
 const deleteFunction = () => {
@@ -18,8 +25,8 @@ const deleteFunction = () => {
     let priceElement = document.querySelector(`#card_swap`)
     num = stockElement.innerHTML
     num--
-    if(num <= 1) {
-        num = 1
+    if(num <= 0) {
+        num = 0
     }
     stockElement.innerHTML = num
     priceElement.innerHTML = 300 * num
@@ -29,15 +36,20 @@ const deleteFunction = () => {
 // console.log(num)
 
 const plusFunction2 = () => {
-    let stockElement = document.querySelector(`.stock_clear`)
+    let stockElement1 = document.querySelector(`.stock_swap`)
+    let stockElement2 = document.querySelector(`.stock_clear`)
     let priceElement = document.querySelector(`#card_clear`)
-    num = stockElement.innerHTML
-    num++
-    if(num >= 2) {
-        num = 2
+    stock1 = Number(stockElement1.innerHTML)
+    stock2 = Number(stockElement2.innerHTML)
+    console.log(stock1, stock2, stock1 + stock2);
+    if(stock1 + stock2 < 2) {
+        stock2++
     }
-    stockElement.innerHTML = num
-    priceElement.innerHTML = 300 * num
+    if(stock2 >= 2) {
+        stock2 = 2
+    }
+    stockElement2.innerHTML = stock2
+    priceElement.innerHTML = 300 * stock2
 }
 
 const deleteFunction2 = () => {
@@ -45,8 +57,8 @@ const deleteFunction2 = () => {
     let priceElement = document.querySelector(`#card_clear`)
     num = stockElement.innerHTML
     num--
-    if(num <= 1) {
-        num = 1
+    if(num <= 0) {
+        num = 0
     }
     stockElement.innerHTML = num
     priceElement.innerHTML = 300 * num
@@ -57,7 +69,9 @@ const buyCard1 = (card, stock) => {
 
     let stockElement = document.querySelector(`.${stock}`)
     const stock1 = stockElement.innerHTML
-    buyItem(price1, stock1, card)
+    if(stock1 != 0) {
+        buyItem(price1, stock1, card)
+    }
 }
 
 const buyItem = (price, stock, card) => {
@@ -89,16 +103,24 @@ function updateRoom(user, card, stock) {
         const dataRoom = data.val()
 
         if(dataRoom.playerX.uid == user.uid) {
+            console.log("updateRoom", card, stock, card == "card_swap" ? stock : (dataRoom.playerX.swapCard || 0));
+
             room.update({
-                swapCard: card == "card_swap" ? stock : (dataRoom.playerX.swapCard || 0),
-                clearCard: card == "card_clear" ? stock : (dataRoom.playerX.clearCard || 0),
+                playerX: {
+                    ...dataRoom.playerX,
+                    swapCard: card == "card_swap" ? stock : (dataRoom.playerX.swapCard || 0),
+                    clearCard: card == "card_clear" ? stock : (dataRoom.playerX.clearCard || 0),
+                }
             })
         }
 
         if(dataRoom.playerO.uid == user.uid) {
             room.update({
-                swapCard: card == "card_swap" ? stock : (dataRoom.playerX.swapCard || 0),
-                clearCard: card == "card_clear" ? stock : (dataRoom.playerX.clearCard || 0),
+                playerO: {
+                    ...dataRoom.playerO,
+                    swapCard: card == "card_swap" ? stock : (dataRoom.playerO.swapCard || 0),
+                    clearCard: card == "card_clear" ? stock : (dataRoom.playerO.clearCard || 0),
+                }
             })
         }
     })

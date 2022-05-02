@@ -80,7 +80,7 @@ body {
 .top-box {
     display: flex;
     flex-direction: row;
-    width: 60vw;
+    /* width: 60vw; */
     justify-content: flex-end;
 }
 
@@ -122,4 +122,8 @@ body {
 #time {
     text-align: center;
     margin-top: 0px;
+}
+
+.howto {
+    width: 60vh;
 }

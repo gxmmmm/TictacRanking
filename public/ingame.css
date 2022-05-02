@@ -125,6 +125,9 @@ body {
 
 .time {
     text-align: center;
+    color: black;
+    font-size: 30px;
+    margin: 10px;
 }
 
 .table {
@@ -178,20 +181,12 @@ body {
     display: flex;
 }
 
-.product-card {
+.product-card1 {
     position: relative;
     top: 15px;
     width: 8vw;
     height: 6vh;
-    border: 2px solid black;
-    background-color: #FDC25B;
-    border-radius: 20px;
-    z-index: -3;
-}
-
-.product-card:hover {
-    width: 10vw;
-    height: 8vh;
+    /* z-index: -3; */
 }
 
 .product-card2 {
@@ -200,24 +195,80 @@ body {
     right: 50px;
     width: 8vw;
     height: 6vh;
-    border: 2px solid black;
-    background-color: #FDC25B;
-    border-radius: 20px;
-    z-index: -3;
+    /* z-index: -3; */
 }
 
-.product-card2:hover {
-    width: 10vw;
-    height: 8vh;
+.swapCard {
+    background-color: #7bfd5b;
+    border: 2px solid black;
+    border-radius: 20px;
+}
+
+.swapCard:hover {
+    /* width: 10vw;
+    height: 8vh; */
+    background-color: #63c74a;
+}
+
+.clearCard {
+    background-color: #FDC25B;
+    border: 2px solid black;
+    border-radius: 20px;
+}
+
+.clearCard:hover {
+    /* width: 10vw;
+    height: 8vh; */
+    background-color: #c49340;
 }
 
 
 /**************************** buy phase **************************************/
 
+.head-bp {
+    background-color: #71C638;
+    color: white;
+    width: 20vw;
+    height: 5vw;
+    font-size: 3vw;
+    margin-top: 1.5vw;
+    border-radius: 20px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    align-content: center;
+    align-self: center;
+    justify-content: center;
+}
+
 .product {
     width: 50vw;
     display: flex;
     justify-content: space-between;
+}
+
+.product-card-bp1 {
+    margin-top: 2vh;
+    width: 17vw;
+    height: 35vh;
+    border: 2px solid black;
+    background-color: #93df80;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.img-card1 {
+    width: 15vw;
+    height: 15vh;
+    background-color: #67aa57;
+    border-radius: 20px;
+    margin-top: 0.6vw;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
 }
 
 .product-card-bp {
@@ -279,17 +330,6 @@ body {
 }
 
 .stock {
-    width: 5vw;
-    height: 4vh;
-    background-color: #94633A;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 0.2vw;
-}
-
-.stock2 {
     width: 5vw;
     height: 4vh;
     background-color: #94633A;
@@ -427,4 +467,8 @@ body {
 .rank-font {
     color: black;
     font-size: 20px;
+}
+
+.howto {
+    width: 50vh;
 }

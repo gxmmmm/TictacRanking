@@ -127,7 +127,6 @@ function renderRoom() {
                 btn.setAttribute("class", "btn btn-success")
                 btn.innerHTML = "Join"
                 btn.setAttribute("onclick", `join('${roomId}')`)
-
             }
             cardBody.appendChild(h5_1)
             cardBody.appendChild(h5_2)

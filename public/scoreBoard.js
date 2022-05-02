@@ -15,7 +15,7 @@ function subscribe() {
 
         for(const userData of userArray) {
             // const userData = userAllData[userId]
-            console.log(userData);
+            // console.log(userData);
 
             const userBox = document.createElement("tr")
             const userH3 = document.createElement("th")
