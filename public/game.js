@@ -558,7 +558,6 @@ function gameOver(status, dataRoom) {
         console.log(currentPlayer, " WIN");
         document.getElementById("box-main").className = "box-win";
         document.getElementById("back-btn").src = "picture/back.png";
-        document.getElementById("page-card").style.display = "none"
 
         playerX = dataRoom.playerX
         playerO = dataRoom.playerO
@@ -647,7 +646,7 @@ function gameOver(status, dataRoom) {
         console.log("DRAW");
         document.getElementById("page-draw").style.display = "block"
         document.getElementById("player-data").style.display = "none"
-        document.getElementById("page-card").style.display = "none"
+            // document.getElementById("page-card").style.display = "none"
             // document.getElementById("card1").style.height = "0";
             // document.getElementById("card2").style.height = "0";
         document.getElementById("box-main").className = "box-win";
@@ -683,6 +682,18 @@ async function changePlayer(player) {
     await update()
 }
 
+async function swapPlayer(player) {
+    if(player == "X") {
+        playerX.swapCard = playerX.swapCard - 1
+    } else if(player == "O") {
+        playerO.swapCard = playerO.swapCard - 1
+    }
+
+    [playerX, playerO] = [playerO, playerX];
+    clearAll()
+    await update()
+}
+
 function buyPhase(data) {
     document.getElementById("page-wait").style.display = "none"
     document.getElementById("page-buyPhase").style.display = "block"
@@ -706,6 +717,7 @@ function playState(data) {
     document.getElementById("page-draw").style.display = "none"
     document.getElementById("player-data").style.display = "flex"
     document.getElementById("page-game").style.display = "block"
+    document.getElementById("page-card").style.display = "block"
 
     // document.getElementById("card1").style.height = null;
     // document.getElementById("card2").style.height = null;
@@ -728,7 +740,7 @@ function timer(timeleft) {
 
 function renderCard(dataPlayer) {
     console.log("render page-card", dataPlayer);
-    const box = document.getElementById("page-card")
+    const box = document.getElementById("page-card-body")
     box.innerHTML = ""
     const card = []
     let number = 1
@@ -736,7 +748,7 @@ function renderCard(dataPlayer) {
     for(let i = 1; i < Number(dataPlayer.swapCard) + 1; i++) {
         let swapCard = document.createElement('div')
         swapCard.setAttribute("class", "product-card" + number + " swapCard player" + userPlayer)
-        swapCard.setAttribute("onclick", `changePlayer('${userPlayer}')`)
+        swapCard.setAttribute("onclick", `swapPlayer('${userPlayer}')`)
         card.push(swapCard)
         number++
     }
