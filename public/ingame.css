@@ -28,6 +28,12 @@ body {
     justify-content: center;
 }
 
+.con-display {
+    min-height: 85vh;
+    display: flex;
+    justify-content: space-between;
+}
+
 .box {
     width: 60vw;
     height: 70vh;
@@ -485,7 +491,7 @@ body {
     width: 50vh;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 880px) {
     .product-card-bp1 {
         height: 32vh;
     }
@@ -497,6 +503,13 @@ body {
     }
     .card-detail {
         font-size: 13px;
+    }
+    .right {
+        display: none;
+    }
+    .con-display {
+        justify-content: center;
+        min-height: 95vh;
     }
 }
 
@@ -512,5 +525,8 @@ body {
     }
     .card-detail {
         font-size: 11px;
+    }
+    .right {
+        display: none;
     }
 }
