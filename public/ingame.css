@@ -331,6 +331,7 @@ body {
     align-items: center;
     color: white;
     z-index: 10 !important;
+    font-size: 2vw;
 }
 
 .stock {
@@ -342,6 +343,7 @@ body {
     justify-content: center;
     align-items: center;
     margin-left: 0.2vw;
+    font-size: 1.5vw;
 }
 
 .btnplus {
@@ -354,6 +356,7 @@ body {
     align-items: center;
     color: white;
     margin-left: 0.2vw;
+    font-size: 2vw;
 }
 
 .btn-price {
@@ -366,6 +369,11 @@ body {
     align-items: center;
     color: white;
     margin-left: 1vw;
+    font-size: 1.5vw;
+}
+
+.card-detail {
+    font-size: 15px;
 }
 
 #status {
@@ -475,4 +483,34 @@ body {
 
 .howto {
     width: 50vh;
+}
+
+@media screen and (max-width: 768px) {
+    .product-card-bp1 {
+        height: 32vh;
+    }
+    .product-card-bp {
+        height: 32vh;
+    }
+    .box {
+        height: 65vh;
+    }
+    .card-detail {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .product-card-bp1 {
+        height: 29vh;
+    }
+    .product-card-bp {
+        height: 29vh;
+    }
+    .box {
+        height: 60vh;
+    }
+    .card-detail {
+        font-size: 11px;
+    }
 }
