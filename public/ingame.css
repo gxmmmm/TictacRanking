@@ -488,7 +488,7 @@ body {
 }
 
 .howto {
-    width: 50vh;
+    width: 100%;
 }
 
 @media screen and (max-width: 880px) {
@@ -511,6 +511,10 @@ body {
         justify-content: center;
         min-height: 95vh;
     }
+    .card-body {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 @media screen and (max-width: 576px) {
@@ -521,12 +525,16 @@ body {
         height: 29vh;
     }
     .box {
-        height: 60vh;
+        width: auto;
     }
     .card-detail {
         font-size: 11px;
     }
     .right {
         display: none;
+    }
+    .card-body {
+        display: flex;
+        flex-direction: column;
     }
 }

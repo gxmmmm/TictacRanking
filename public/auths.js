@@ -2,8 +2,9 @@ const btnLogin = document.querySelector("#btnLogin");
 btnLogin.addEventListener('click', loginUser)
 
 firebase.auth().onAuthStateChanged((user) => {
-    const userData = firebase.database().ref(`User/${user.uid}`)
-    userData.once('value', (data) => {
+    if(user) {
+        const userData = firebase.database().ref(`User/${user.uid}`)
+        userData.once('value', (data) => {
             const dataState = data.val()
             console.log(dataState);
             if(!dataState) {
@@ -16,7 +17,11 @@ firebase.auth().onAuthStateChanged((user) => {
             }
             setupUI(user, dataState)
         })
-        // getList(user)
+    } else {
+        setupUI(user, null)
+    }
+
+    // getList(user)
 
     // window.location.href = "/ingame.html"
 })
