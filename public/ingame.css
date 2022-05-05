@@ -491,6 +491,18 @@ body {
     width: 100%;
 }
 
+#btnClose {
+    display: none;
+}
+
+#btnScore {
+    display: none;
+}
+
+body {
+    overflow: hidden;
+}
+
 @media screen and (max-width: 880px) {
     .product-card-bp1 {
         height: 32vh;
@@ -504,8 +516,30 @@ body {
     .card-detail {
         font-size: 13px;
     }
+    #btnScore {
+        display: inline-block;
+    }
     .right {
         display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: white;
+    }
+    .right.show {
+        display: block;
+    }
+    #btnClose {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: rgb(244, 21, 66);
+    }
+    #btnClose:hover {
+        color: rgb(144, 12, 38);
     }
     .con-display {
         justify-content: center;

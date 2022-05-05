@@ -10,18 +10,22 @@ async function handleCreateNewRoom() {
     console.log(roomId);
 }
 async function update(user) {
-    firebase.database().ref(`Room/${roomId}`).set({
-        playerX: {
-            uid: user.uid,
-            name: user.displayName,
-            photoURL: user.photoURL,
-            swapCard: 0,
-            clearCard: 0,
-            win: 0
-        },
-        playerO: {},
-        gameStatus: "waiting"
+    refUser.child(user.uid).once("value", (data) => {
+        data = data.val()
+        firebase.database().ref(`Room/${roomId}`).set({
+            playerX: {
+                uid: user.uid,
+                name: data.name,
+                photoURL: data.userProfile,
+                swapCard: 0,
+                clearCard: 0,
+                win: 0
+            },
+            playerO: {},
+            gameStatus: "waiting"
+        })
     })
+
 }
 // สร้างID
 function makeid(length) {
@@ -47,20 +51,22 @@ async function join(room_id) {
 
                 window.location.href = "/inmatch.html?roomId=" + room_id
             } else if(!dataState.playerO) {
-                firebase.database().ref(`Room/${room_id}`).update({
-                    playerO: {
-                        uid: user.uid,
-                        name: user.displayName,
-                        photoURL: user.photoURL,
-                        swapCard: 0,
-                        clearCard: 0,
-                        win: 0
-                    },
-                    gameStatus: "buyPhase"
+                refUser.child(user.uid).once("value", (data) => {
+                    data = data.val()
+                    firebase.database().ref(`Room/${room_id}`).update({
+                        playerO: {
+                            uid: user.uid,
+                            name: data.name,
+                            photoURL: data.userProfile,
+                            swapCard: 0,
+                            clearCard: 0,
+                            win: 0
+                        },
+                        gameStatus: "buyPhase"
+                    })
+                    window.location.href = "/inmatch.html?roomId=" + room_id
                 })
-                window.location.href = "/inmatch.html?roomId=" + room_id
             }
-
 
         })
 
@@ -117,8 +123,26 @@ function renderRoom() {
             const h5_2 = document.createElement("h5")
             const h5_3 = document.createElement("h5")
             h5_1.innerHTML = "#" + i
-            h5_2.innerHTML = "X :" + (dataState[roomId].playerX ? dataState[roomId].playerX.name : "")
-            h5_3.innerHTML = "O :" + (dataState[roomId].playerO ? dataState[roomId].playerO.name : "")
+            if(dataState[roomId].playerX) {
+                console.log(dataState[roomId].playerX);
+                h5_2.innerHTML = "X : " + dataState[roomId].playerX.name;
+                // refUser.child(dataState[roomId].playerX.uid).once("value", (d) => {
+                //     d = d.val()
+                //         // h5_2.innerHTML = "X : " + d.name;
+                //         // h5_2.innerHTML = "X : " + d.name;
+                //         // console.log(h5_2.innerHTML);
+                // })
+            } else {
+                h5_2.innerHTML = "X : waiting..."
+            }
+            if(dataState[roomId].playerO) {
+                h5_3.innerHTML = "O : " + dataState[roomId].playerO.name
+                    // refUser.child(dataState[roomId].playerO.uid).once("value", (d) => {
+                    //     h5_3.innerHTML = "O : " + d.val().name
+                    // })
+            } else {
+                h5_3.innerHTML = "O : waiting..."
+            }
             const btn = document.createElement("button")
             if(dataState[roomId].playerO && dataState[roomId].playerX) {
                 btn.setAttribute("class", "btn btn-danger")
